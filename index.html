@@ -6,27 +6,38 @@
     <title>Redirection</title>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            const targetUrl = "https://myforum-cs.fr/representatives/login";
+            const targetUrl = "https://myforum-cs.fr/representatives/login"; // URL de destination
             const username = "gregoire.rouviere@forum-cs.fr"; // Adresse e-mail à pré-remplir
+            const password = "votre_mot_de_passe"; // Mot de passe à pré-remplir
 
-            // Créez un formulaire dynamique et envoyez les données
+            // Créez un formulaire dynamique
             const form = document.createElement("form");
             form.action = targetUrl;
             form.method = "POST";
 
+            // Champ pour le nom d'utilisateur
             const inputUsername = document.createElement("input");
             inputUsername.type = "hidden";
             inputUsername.name = "_username";
             inputUsername.value = username;
 
+            // Champ pour le mot de passe
+            const inputPassword = document.createElement("input");
+            inputPassword.type = "hidden";
+            inputPassword.name = "_password";
+            inputPassword.value = password;
+
+            // Ajoutez les champs au formulaire
             form.appendChild(inputUsername);
+            form.appendChild(inputPassword);
             document.body.appendChild(form);
 
+            // Soumettez le formulaire automatiquement
             form.submit();
         });
     </script>
 </head>
 <body>
-    <p>Redirection en cours...</p>
+    <p>Redirection et connexion en cours...</p>
 </body>
 </html>

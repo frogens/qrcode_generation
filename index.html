@@ -1,43 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Redirection</title>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const targetUrl = "https://myforum-cs.fr/representatives/login";
-            const username = "gregoire.rouviere@forum-cs.fr"; // Replace with your email
-            const password = "votre_mot_de_passe"; // Replace with your password
+<script>
+  window.onload = function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const username = urlParams.get('username');
+    const password = urlParams.get('password');
 
-            // Create an iframe to inject into the target form
-            const iframe = document.createElement("iframe");
-            iframe.src = targetUrl;
-            iframe.style.display = "none";
-            document.body.appendChild(iframe);
+    if (username && password) {
+      // Remplir les champs
+      document.querySelector('#username').value = username;
+      document.querySelector('#password').value = password;
 
-            iframe.onload = function () {
-                const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-
-                // Fill in the username and password
-                const usernameField = iframeDoc.querySelector('#username');
-                const passwordField = iframeDoc.querySelector('#password');
-                const submitButton = iframeDoc.querySelector('button[type="submit"]');
-
-                if (usernameField && passwordField && submitButton) {
-                    usernameField.value = username;
-                    passwordField.value = password;
-
-                    // Simulate clicking the submit button
-                    submitButton.click();
-                } else {
-                    console.error("Could not find the login fields or submit button.");
-                }
-            };
-        });
-    </script>
-</head>
-<body>
-    <p>Redirection et connexion en cours...</p>
-</body>
-</html>
+      // Attendre que le CAPTCHA soit résolu avant de soumettre
+      document.querySelector('#loginForm').addEventListener('submit', function(event) {
+        if (!grecaptcha.getResponse()) {
+          event.preventDefault();
+          alert('Veuillez résoudre le CAPTCHA avant de continuer.');
+        }
+      });
+    }
+  };
+</script>

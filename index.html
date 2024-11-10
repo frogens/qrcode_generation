@@ -3,22 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pré-remplir Email</title>
+    <title>Redirection</title>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            const emailToFill = "prenom.nom@domaine.fr";
-            const emailField = document.getElementById("username");
+            const targetUrl = "https://myforum-cs.fr./representatives/login";
+            const username = "gregoire.rouviere@forum-cs.fr"; // Adresse e-mail à pré-remplir
 
-            if (emailField) {
-                emailField.value = emailToFill;
-                emailField.dispatchEvent(new Event("input"));
-            } else {
-                console.error("Le champ email avec l'id 'username' n'a pas été trouvé.");
-            }
+            // Créez un formulaire dynamique et envoyez les données
+            const form = document.createElement("form");
+            form.action = targetUrl;
+            form.method = "POST";
+
+            const inputUsername = document.createElement("input");
+            inputUsername.type = "hidden";
+            inputUsername.name = "_username";
+            inputUsername.value = username;
+
+            form.appendChild(inputUsername);
+            document.body.appendChild(form);
+
+            form.submit();
         });
     </script>
 </head>
 <body>
-    <p>Chargement...</p>
+    <p>Redirection en cours...</p>
 </body>
 </html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pré-remplir Email</title>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const emailToFill = "prenom.nom@domaine.fr";
+            const emailField = document.getElementById("username");
+
+            if (emailField) {
+                emailField.value = emailToFill;
+                emailField.dispatchEvent(new Event("input"));
+            } else {
+                console.error("Le champ email avec l'id 'username' n'a pas été trouvé.");
+            }
+        });
+    </script>
+</head>
+<body>
+    <p>Chargement...</p>
+</body>
+</html>

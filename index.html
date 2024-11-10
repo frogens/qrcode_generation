@@ -6,34 +6,34 @@
     <title>Redirection</title>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            const targetUrl = "https://myforum-cs.fr/representatives/login"; // URL de destination
-            const username = "gregoire.rouviere@forum-cs.fr"; // Adresse e-mail à pré-remplir
-            const password = "votre_mot_de_passe"; // Mot de passe à pré-remplir
+            const targetUrl = "https://myforum-cs.fr/representatives/login";
+            const username = "gregoire.rouviere@forum-cs.fr"; // Replace with your email
+            const password = "votre_mot_de_passe"; // Replace with your password
 
-            // Créez un formulaire dynamique
-            const form = document.createElement("form");
-            form.action = targetUrl;
-            form.method = "POST";
+            // Create an iframe to inject into the target form
+            const iframe = document.createElement("iframe");
+            iframe.src = targetUrl;
+            iframe.style.display = "none";
+            document.body.appendChild(iframe);
 
-            // Champ pour le nom d'utilisateur
-            const inputUsername = document.createElement("input");
-            inputUsername.type = "hidden";
-            inputUsername.name = "_username";
-            inputUsername.value = username;
+            iframe.onload = function () {
+                const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
 
-            // Champ pour le mot de passe
-            const inputPassword = document.createElement("input");
-            inputPassword.type = "hidden";
-            inputPassword.name = "_password";
-            inputPassword.value = password;
+                // Fill in the username and password
+                const usernameField = iframeDoc.querySelector('#username');
+                const passwordField = iframeDoc.querySelector('#password');
+                const submitButton = iframeDoc.querySelector('button[type="submit"]');
 
-            // Ajoutez les champs au formulaire
-            form.appendChild(inputUsername);
-            form.appendChild(inputPassword);
-            document.body.appendChild(form);
+                if (usernameField && passwordField && submitButton) {
+                    usernameField.value = username;
+                    passwordField.value = password;
 
-            // Soumettez le formulaire automatiquement
-            form.submit();
+                    // Simulate clicking the submit button
+                    submitButton.click();
+                } else {
+                    console.error("Could not find the login fields or submit button.");
+                }
+            };
         });
     </script>
 </head>
